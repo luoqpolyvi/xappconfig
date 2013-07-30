@@ -23,5 +23,9 @@
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/luoqpolyvi/xappconfig/issues"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "xappconfig" : "xappconfig.js"
   }
 }

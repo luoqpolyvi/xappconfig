@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 var fs = require('fs');
 var libxmljs = require('libxmljs');
 var updater = require('./updater.js');
