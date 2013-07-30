@@ -6,15 +6,17 @@ xface app configuration file auto-generator
 ###Usage
 * Install it with npm 
 
-    npm install xappconfig -g
+    ```npm install xappconfig -g```
 
 * To create an app.xml with default template
 
-    xappconfig -c
+    ```xappconfig -c```
+    
+    ```xappconfig -c -n myphone -i myphoneid```
 
 * To update one or more preferences, run
     
-    xappconfig -u -i myappid -v 1.0.2
+    ```xappconfig -u -i myappid -v 1.0.2```
     
 ###Options
 * -c create
