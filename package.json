@@ -1,0 +1,27 @@
+{
+  "name": "xappconfig",
+  "version": "0.0.1",
+  "description": "generator for config of xface application",
+  "main": "xappconfig.js",
+  "dependencies": {
+    "libxmljs": "~0.8.1",
+    "optimist": "~0.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "xappconfig -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/luoqpolyvi/xappconfig.git"
+  },
+  "keywords": [
+    "xface",
+    "config"
+  ],
+  "author": "luoq",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/luoqpolyvi/xappconfig/issues"
+  }
+}
