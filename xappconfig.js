@@ -89,7 +89,7 @@ app_xml_path = (typeof argv.file != 'undefined') ? argv.file : app_xml_path;
 
 if (argv.create) {
     // create app.xml with template
-    var doc = create();
+    create(app_xml_path);
 } else if (argv.update) {
     update(app_xml_path);
 };
@@ -104,17 +104,15 @@ function update(appxml) {
         for (var property in argv) {
             var value = argv[property];
             if (typeof(updater[property]) === 'function') {
-                console.log(property);
                 updater[property](doc, argv[property]);
             }
         }
 
-        write(doc);
+        write(doc, app_xml_path);
     });
 };
 
-function create() {
-    console.log(argv);
+function create(app_xml_path) {
     app_id = (typeof argv.id != 'undefined') ? argv.id : app_id;
     app_name = (typeof argv.name != 'undefined') ? argv.name : app_name;
     app_version = (typeof argv.version != 'undefined') ? argv.version : app_version;
@@ -149,15 +147,15 @@ function create() {
     root.node('author', app_author).attr({href:app_site, email:app_mail});
     root.node('license', app_license);
 
-    write(doc);
+    write(doc, app_xml_path);
 };
 
-function write(doc) {
-    fs.writeFile(app_xml_path, doc.toString(), function(err) {
+function write(doc, path) {
+    fs.writeFile(path, doc.toString(), function(err) {
         if (err) {
             console.log(err);
         } else {
-            console.log(app_xml_path + ' was successfully saved!');
+            console.log(path + ' was successfully saved!');
         }
     })
 };
