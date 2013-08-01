@@ -3,6 +3,7 @@
 var fs = require('fs');
 var libxmljs = require('libxmljs');
 var updater = require('./updater.js');
+var creator = require('./creator.js')
 
 var argv = require('optimist')
     .options('i', {
@@ -72,26 +73,13 @@ var argv = require('optimist')
     .usage('Generate template for app.xml: $0')
     .argv;
 
-var app_id = 'myappid';
-var app_name = 'myxfaceapp';
-var app_version = '1.0.0';
-var app_type = 'xapp';
-var app_icon = 'icon.png';
-var app_content = 'index.html';
-var app_mode = 'local';
-var app_remote = 'http://itunes.apple.com/cn/app/appname/appid?mt=8';
-var app_description = 'A sample widget to demonstrate some of the possibilities.';
-var app_author = 'PolyVi';
-var app_site = 'http://polyvi.com/';
-var app_mail = 'foo-bar@polyvi.com';
-var app_license = 'Copyright 2012-2013, Polyvi Inc.';
 var app_xml_path = './app.xml';
 
 app_xml_path = (typeof argv.file != 'undefined') ? argv.file : app_xml_path;
 
 if (argv.create) {
     // create app.xml with template
-    create(app_xml_path);
+    creator(createDoc);
 } else if (argv.update) {
     update(app_xml_path);
 };
@@ -103,6 +91,7 @@ function update(appxml) {
 
         var doc = libxmljs.parseXml(data);
 
+        console.dir(argv);
         for (var property in argv) {
             var value = argv[property];
             if (typeof(updater[property]) === 'function') {
@@ -114,40 +103,28 @@ function update(appxml) {
     });
 };
 
-function create(app_xml_path) {
-    app_id = (typeof argv.id != 'undefined') ? argv.id : app_id;
-    app_name = (typeof argv.name != 'undefined') ? argv.name : app_name;
-    app_version = (typeof argv.version != 'undefined') ? argv.version : app_version;
-    app_type = (typeof argv.type != 'undefined') ? argv.type : app_type;
-    app_icon = (typeof argv.icon != 'undefined') ? argv.icon : app_icon;
-    app_content = (typeof argv.content != 'undefined') ? argv.content : app_content;
-    app_mode = (typeof argv.mode != 'undefined') ? argv.mode : app_mode;
-    app_remote = (typeof argv.remote != 'undefined') ? argv.remote : app_remote;
-    app_description = (typeof argv.description != 'undefined') ? argv.description : app_description;
-    app_author = (typeof argv.author != 'undefined') ? argv.author : app_author;
-    app_site = (typeof argv.site != 'undefined') ? argv.site : app_site;
-    app_mail = (typeof argv.mail != 'undefined') ? argv.mail : app_mail;
-    app_license = (typeof argv.license != 'undefined') ? argv.license : app_license;
+function createDoc(config) {
+    console.dir(config);
 
     var doc = new libxmljs.Document();
 
-    var root = doc.node('widget').attr({id:app_id, version:app_version});
-    root.node('name', app_name).attr({short:app_name});
-    root.node('icon').attr({src:app_icon});
-    root.node('content').attr({src:app_content, encoding:'UTF-8'});
-    root.node('preference').attr({name:'type', value:app_type, readonly:'true'});
+    var root = doc.node('widget').attr({id:config.id, version:config.version});
+    root.node('name', config.name).attr({short:config.name});
+    root.node('icon').attr({src:config.icon});
+    root.node('content').attr({src:config.content, encoding:'UTF-8'});
+    root.node('preference').attr({name:'type', value:config.type, readonly:'true'});
 
-    if ('xapp' === app_type) {
-        root.node('preference').attr({name:'mode', value:app_mode, readonly:'true'})
+    if (typeof(config.mode) != 'undefined') {
+        root.node('preference').attr({name:'mode', value:config.mode, readonly:'true'})
     }
 
-    if ('napp' === app_type) {
-        root.node('preference').attr({name:'remote-pkg', value:app_remote, readonly:'true'})
+    if (typeof(config.remote) != 'undefined') {
+        root.node('preference').attr({name:'remote-pkg', value:config.remote, readonly:'true'})
     }
 
-    root.node('description', app_description);
-    root.node('author', app_author).attr({href:app_site, email:app_mail});
-    root.node('license', app_license);
+    root.node('description', config.description);
+    root.node('author', config.author).attr({href:config.site, email:config.mail});
+    root.node('license', config.license);
 
     write(doc, app_xml_path);
 };

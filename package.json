@@ -1,11 +1,12 @@
 {
   "name": "xappconfig",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "generator for config of xface application",
   "main": "xappconfig.js",
   "dependencies": {
     "libxmljs": "~0.8.1",
-    "optimist": "~0.6.0"
+    "optimist": "~0.6.0",
+    "prompt": "~0.2.11"
   },
   "devDependencies": {},
   "scripts": {
