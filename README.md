@@ -12,7 +12,7 @@ xface app configuration file auto-generator
 
     ```xappconfig -c```
     
-    ```xappconfig -c -n myphone -i myphoneid```
+  Then follow the prompt, input your own value or simply take the default one.
 
 * To update one or more preferences, run
     
