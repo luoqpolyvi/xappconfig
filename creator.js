@@ -48,6 +48,10 @@ var schema = {
         },
         license: {
             default: 'Copyright 2012-2013, Polyvi Inc.',
+        },
+        engine: {
+            default: '3.1.0',
+            pattern: /^[3-9].[1-9].[\d]+$/,
         }
     }
 };

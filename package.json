@@ -1,6 +1,6 @@
 {
   "name": "xappconfig",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "generator for config of xface application",
   "main": "xappconfig.js",
   "dependencies": {

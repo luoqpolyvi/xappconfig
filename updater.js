@@ -12,6 +12,7 @@ updater['site'] = updateSite;
 updater['mail'] = updateMail;
 updater['author'] = updateAuthor;
 updater['license'] = updateLicense;
+updater['engine'] = updateEngine;
 
 // TODO: add validator
 
@@ -52,6 +53,10 @@ function updateType(doc, newType) {
 function updateMode(doc, newMode) {
     updatePreference(doc, 'mode', newMode);
 };
+
+function updateEngine(doc, newEngine) {
+    updatePreference(doc, 'engine', newEngine);
+}
 
 function updatePreference(doc, pref, newValue) {
     var node = findPreferenceWithAttr(doc, pref);

@@ -70,6 +70,10 @@ var argv = require('optimist')
         alias: 'file',
         describe: 'path to app.xml',
     })
+    .options('e', {
+        alias: 'engine',
+        describe: 'which engine required by app'
+    })
     .usage('Generate template for app.xml: $0')
     .argv;
 
@@ -112,6 +116,7 @@ function createDoc(config) {
     root.node('name', config.name).attr({short:config.name});
     root.node('icon').attr({src:config.icon});
     root.node('content').attr({src:config.content, encoding:'UTF-8'});
+    root.node('preference').attr({name:'engine', value:config.engine, readonly:'true'});
     root.node('preference').attr({name:'type', value:config.type, readonly:'true'});
 
     if (typeof(config.mode) != 'undefined') {
