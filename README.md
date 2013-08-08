@@ -28,6 +28,7 @@ xface app configuration file auto-generator
 * -icon
 * -content source for content
 * -m app mode
+* -e lowest engine version required by app
 * -r remote url for native app
 * -d description
 * -a author
